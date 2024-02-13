@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '12.0'
+
+target 'FPSMonitor_Example' do
+  pod 'FPSMonitor', :path => '../'
+
+  target 'FPSMonitor_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
