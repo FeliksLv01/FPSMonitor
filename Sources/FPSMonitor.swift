@@ -15,8 +15,19 @@ public class FPSMonitor: NSObject {
     private var startTimestamp: TimeInterval = 0.0
     private var count = 0
     
+    private var kSafeAreaTop: CGFloat {
+        if #available(iOS 11, *) {
+            guard let w = UIApplication.shared.delegate?.window, let unwrapeWindow = w else {
+                return 0
+            }
+            
+            return unwrapeWindow.safeAreaInsets.top
+        }
+        return 0
+    }
+    
     private lazy var fpsWindow: FPSMonitorWindow = {
-        var topInset: CGFloat = 20.0
+        var topInset: CGFloat = max(kSafeAreaTop, 20.0)
         return FPSMonitorWindow(frame: CGRect(x: UIScreen.main.bounds.width - 16.0 - 100.0, y: topInset, width: 100, height: 40))
     }()
     

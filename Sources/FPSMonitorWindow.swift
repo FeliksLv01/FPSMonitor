@@ -11,8 +11,10 @@ class FPSMonitorWindow: UIWindow {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        layer.masksToBounds = true
-        layer.cornerRadius = 8.0
+        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 5.0
+        layer.shadowOffset = .zero
+        layer.shadowColor = UIColor.black.cgColor
         windowLevel = UIWindow.Level.statusBar + 1.0
         rootViewController = UIViewController()
         isUserInteractionEnabled = false
@@ -43,12 +45,12 @@ class FPSMonitorWindow: UIWindow {
     
     private let fpsLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
         label.textAlignment = .center
         if #available(iOS 13.0, *) {
+            label.textColor = .label
             label.font = UIFont.monospacedSystemFont(ofSize: 16, weight: .regular)
         } else {
-            // Fallback on earlier versions
+            label.textColor = .white
             label.font = UIFont.systemFont(ofSize: 16)
         }
         label.text = "0.0"
@@ -58,6 +60,8 @@ class FPSMonitorWindow: UIWindow {
     private lazy var visualEffectView: UIVisualEffectView = {
         let effect = UIBlurEffect(style: .regular)
         let view = UIVisualEffectView(effect: effect)
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 8.0
         return view
     }()
 }
