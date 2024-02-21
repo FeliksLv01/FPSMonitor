@@ -41,6 +41,7 @@ class FPSMonitorWindow: UIWindow {
     
     public func update(fps: Double) {
         fpsLabel.text = String(format: "%.1f", fps)
+        fpsLabel.sizeToFit()
     }
     
     private let fpsLabel: UILabel = {
